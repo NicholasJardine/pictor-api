@@ -1,6 +1,6 @@
 class Api::V1::PostsController < Api::V1::BaseController
   acts_as_token_authentication_handler_for User, except: [ :index, :show ]
-    before_action :set_post, only: [ :show, :update ]
+    before_action :set_post, only: [ :show, :update, :destroy ]
 
   def index
     @posts = policy_scope(Post)
@@ -29,6 +29,11 @@ class Api::V1::PostsController < Api::V1::BaseController
     else
       render_error
     end
+  end
+
+  def destroy
+    @post.destroy
+    head :no_content
   end
 
   private

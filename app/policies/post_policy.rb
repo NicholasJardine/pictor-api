@@ -17,4 +17,8 @@ class PostPolicy < ApplicationPolicy
     !user.nil?
   end
 
+  def destroy?
+    update?
+  end
+
 end
