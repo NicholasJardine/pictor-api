@@ -13,4 +13,8 @@ class PostPolicy < ApplicationPolicy
     record.user == user
   end
 
+  def create?
+    !user.nil?
+  end
+
 end

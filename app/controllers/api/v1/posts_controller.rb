@@ -20,6 +20,16 @@ class Api::V1::PostsController < Api::V1::BaseController
     end
   end
 
+  def create
+    @post = Post.new(post_params)
+    @post.user = current_user
+    authorize @post
+    if @post.save
+      render :show
+    else
+      render_error
+    end
+  end
 
   private
 
