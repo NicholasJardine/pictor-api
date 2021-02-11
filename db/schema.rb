@@ -10,10 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_11_120725) do
+ActiveRecord::Schema.define(version: 2021_02_11_134101) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "briefs", force: :cascade do |t|
+    t.string "name"
+    t.string "gender"
+    t.string "age_range"
+    t.string "ethnicity"
+    t.text "flaws"
+    t.text "traits"
+    t.string "wants"
+    t.string "needs"
+    t.string "arc_summary"
+    t.string "profession"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "scene"
+    t.index ["user_id"], name: "index_briefs_on_user_id"
+  end
 
   create_table "posts", force: :cascade do |t|
     t.string "caption"
@@ -21,6 +39,7 @@ ActiveRecord::Schema.define(version: 2021_02_11_120725) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "video"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
@@ -38,5 +57,6 @@ ActiveRecord::Schema.define(version: 2021_02_11_120725) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "briefs", "users"
   add_foreign_key "posts", "users"
 end
