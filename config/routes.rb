@@ -6,6 +6,8 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :posts, only: [ :index, :show, :update , :create, :destroy ]
       resources :briefs, only: [ :index, :show, :update , :create, :destroy ]
+      resources :articles, only: [ :index, :show, :update , :create, :destroy ]
+
     end
   end
 end
