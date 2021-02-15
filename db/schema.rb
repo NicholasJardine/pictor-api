@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_15_095220) do
+ActiveRecord::Schema.define(version: 2021_02_15_111042) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,17 @@ ActiveRecord::Schema.define(version: 2021_02_15_095220) do
     t.datetime "updated_at", null: false
     t.bigint "user_id"
     t.index ["user_id"], name: "index_articles_on_user_id"
+  end
+
+  create_table "auditions", force: :cascade do |t|
+    t.string "video"
+    t.string "title"
+    t.bigint "user_id"
+    t.bigint "brief_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["brief_id"], name: "index_auditions_on_brief_id"
+    t.index ["user_id"], name: "index_auditions_on_user_id"
   end
 
   create_table "briefs", force: :cascade do |t|
@@ -60,6 +71,16 @@ ActiveRecord::Schema.define(version: 2021_02_15_095220) do
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
+  create_table "user_briefs", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "brief_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "status", default: "Pending"
+    t.index ["brief_id"], name: "index_user_briefs_on_brief_id"
+    t.index ["user_id"], name: "index_user_briefs_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -75,6 +96,10 @@ ActiveRecord::Schema.define(version: 2021_02_15_095220) do
   end
 
   add_foreign_key "articles", "users"
+  add_foreign_key "auditions", "briefs"
+  add_foreign_key "auditions", "users"
   add_foreign_key "briefs", "users"
   add_foreign_key "posts", "users"
+  add_foreign_key "user_briefs", "briefs"
+  add_foreign_key "user_briefs", "users"
 end
