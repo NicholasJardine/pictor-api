@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       resources :briefs, only: [ :index, :show, :update , :create, :destroy ]
       resources :articles, only: [ :index, :show, :update , :create, :destroy ]
       resources :user_briefs, only: [ :index, :show, :update , :create, :destroy ]
+      resources :auditions, only: [ :index, :show, :update , :create, :destroy ]
 
     end
   end

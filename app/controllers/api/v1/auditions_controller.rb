@@ -1,4 +1,4 @@
-class Api::V1::BriefsController < Api::V1::BaseController
+class Api::V1::AuditionsController < Api::V1::BaseController
   acts_as_token_authentication_handler_for User, except: [ :index, :show ]
     before_action :set_audition, only: [ :show, :update, :destroy ]
 
@@ -8,7 +8,7 @@ class Api::V1::BriefsController < Api::V1::BaseController
 
 
   def show
-    @audition = Audition.find(params[:id])
+    @audition = Aauditionudition.find(params[:id])
     authorize @audition
   end
 
@@ -44,7 +44,7 @@ class Api::V1::BriefsController < Api::V1::BaseController
   end
 
   def audition_params
-    params.require(:audition).permit(:wants, :needs, :id, :ethnicity, :gender, :name)
+    params.require(:audition).permit(:title, :video, :brief_id, :id)
   end
 
   def render_error
