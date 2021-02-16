@@ -13,7 +13,7 @@ class Api::V1::BriefsController < Api::V1::BaseController
   end
 
   def update
-    if @reason.update(brief_params)
+    if @reason.update(reason_params)
       render :show
     else
       render_error
@@ -21,7 +21,7 @@ class Api::V1::BriefsController < Api::V1::BaseController
   end
 
   def create
-    @reason = Reason.new(brief_params)
+    @reason = Reason.new(reason_params)
     @reason.user = current_user
     authorize @reason
     if @reason.save
@@ -43,7 +43,7 @@ class Api::V1::BriefsController < Api::V1::BaseController
     authorize @reason  # For Pundit
   end
 
-  def brief_params
+  def reason_params
     params.require(:reason).permit(:wants, :needs, :id, :ethnicity, :gender, :name)
   end
 

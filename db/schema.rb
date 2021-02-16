@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_16_092104) do
+ActiveRecord::Schema.define(version: 2021_02_16_093858) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -81,6 +81,7 @@ ActiveRecord::Schema.define(version: 2021_02_16_092104) do
     t.boolean "sexual_content", default: false
     t.boolean "child_abuse", default: false
     t.boolean "not_legit", default: false
+    t.text "custom"
     t.index ["brief_id"], name: "index_reasons_on_brief_id"
     t.index ["user_id"], name: "index_reasons_on_user_id"
   end
