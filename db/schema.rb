@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_15_111042) do
+ActiveRecord::Schema.define(version: 2021_02_16_090938) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,6 +71,16 @@ ActiveRecord::Schema.define(version: 2021_02_15_111042) do
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
+  create_table "user_auditions", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "audition_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "status", default: "Pending"
+    t.index ["audition_id"], name: "index_user_auditions_on_audition_id"
+    t.index ["user_id"], name: "index_user_auditions_on_user_id"
+  end
+
   create_table "user_briefs", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "brief_id"
@@ -100,6 +110,8 @@ ActiveRecord::Schema.define(version: 2021_02_15_111042) do
   add_foreign_key "auditions", "users"
   add_foreign_key "briefs", "users"
   add_foreign_key "posts", "users"
+  add_foreign_key "user_auditions", "auditions"
+  add_foreign_key "user_auditions", "users"
   add_foreign_key "user_briefs", "briefs"
   add_foreign_key "user_briefs", "users"
 end
