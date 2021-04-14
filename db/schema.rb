@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_16_094245) do
+ActiveRecord::Schema.define(version: 2021_04_14_100153) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,6 +69,41 @@ ActiveRecord::Schema.define(version: 2021_02_16_094245) do
     t.datetime "updated_at", null: false
     t.string "video"
     t.index ["user_id"], name: "index_posts_on_user_id"
+  end
+
+  create_table "private_briefs", force: :cascade do |t|
+    t.string "name"
+    t.integer "age"
+    t.string "gender"
+    t.string "ethnicity"
+    t.string "language"
+    t.string "marital_status"
+    t.bigint "user_id"
+    t.integer "sender_id"
+    t.string "title"
+    t.string "scene"
+    t.string "profession"
+    t.string "hometown"
+    t.string "current_home"
+    t.text "wants"
+    t.text "needs"
+    t.text "traits"
+    t.text "flaws"
+    t.text "arc_summary"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "status", default: "Pending"
+    t.index ["user_id"], name: "index_private_briefs_on_user_id"
+  end
+
+  create_table "private_invites", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "private_brief_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "status", default: "Pending"
+    t.index ["private_brief_id"], name: "index_private_invites_on_private_brief_id"
+    t.index ["user_id"], name: "index_private_invites_on_user_id"
   end
 
   create_table "reasons", force: :cascade do |t|
@@ -134,6 +169,9 @@ ActiveRecord::Schema.define(version: 2021_02_16_094245) do
   add_foreign_key "auditions", "users"
   add_foreign_key "briefs", "users"
   add_foreign_key "posts", "users"
+  add_foreign_key "private_briefs", "users"
+  add_foreign_key "private_invites", "private_briefs"
+  add_foreign_key "private_invites", "users"
   add_foreign_key "reasons", "briefs"
   add_foreign_key "reasons", "users"
   add_foreign_key "user_auditions", "auditions"
