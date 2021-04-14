@@ -1,6 +1,6 @@
 class Api::V1::PrivateAuditionsController < Api::V1::BaseController
   acts_as_token_authentication_handler_for User, except: [ :index, :show ]
-    before_action :set_audition, only: [ :show, :update, :destroy ]
+    before_action :set_private_audition, only: [ :show, :update, :destroy ]
 
   def index
     @private_auditions = policy_scope(PrivateAudition)
@@ -38,7 +38,7 @@ class Api::V1::PrivateAuditionsController < Api::V1::BaseController
 
   private
 
-  def set_audition
+  def set_private_audition
     @private_audition = PrivateAudition.find(params[:id])
     authorize @private_audition  # For Pundit
   end
