@@ -10,10 +10,44 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_14_101046) do
+ActiveRecord::Schema.define(version: 2021_04_14_102807) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "acceptances", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "private_invite_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "status", default: "Pending"
+    t.index ["private_invite_id"], name: "index_acceptances_on_private_invite_id"
+    t.index ["user_id"], name: "index_acceptances_on_user_id"
+  end
+
+  create_table "account_complaints", force: :cascade do |t|
+    t.bigint "user_id"
+    t.text "custom"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "career_changes", default: false
+    t.boolean "not_recieving_briefs", default: false
+    t.boolean "dont_like_it", default: false
+    t.boolean "unsatisfied", default: false
+    t.boolean "not_useful", default: false
+    t.index ["user_id"], name: "index_account_complaints_on_user_id"
+  end
+
+  create_table "applications", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "user_brief_id"
+    t.string "province"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "status", default: "Pending"
+    t.index ["user_brief_id"], name: "index_applications_on_user_brief_id"
+    t.index ["user_id"], name: "index_applications_on_user_id"
+  end
 
   create_table "articles", force: :cascade do |t|
     t.string "description"
@@ -190,6 +224,11 @@ ActiveRecord::Schema.define(version: 2021_04_14_101046) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "acceptances", "private_invites"
+  add_foreign_key "acceptances", "users"
+  add_foreign_key "account_complaints", "users"
+  add_foreign_key "applications", "user_briefs"
+  add_foreign_key "applications", "users"
   add_foreign_key "articles", "users"
   add_foreign_key "auditions", "briefs"
   add_foreign_key "auditions", "users"
