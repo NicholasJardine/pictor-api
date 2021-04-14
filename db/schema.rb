@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_14_103154) do
+ActiveRecord::Schema.define(version: 2021_04_14_113426) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,15 +59,15 @@ ActiveRecord::Schema.define(version: 2021_04_14_103154) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "applications", force: :cascade do |t|
+  create_table "applis", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "user_brief_id"
     t.string "province"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "status", default: "Pending"
-    t.index ["user_brief_id"], name: "index_applications_on_user_brief_id"
-    t.index ["user_id"], name: "index_applications_on_user_id"
+    t.index ["user_brief_id"], name: "index_applis_on_user_brief_id"
+    t.index ["user_id"], name: "index_applis_on_user_id"
   end
 
   create_table "articles", force: :cascade do |t|
@@ -249,8 +249,8 @@ ActiveRecord::Schema.define(version: 2021_04_14_103154) do
   add_foreign_key "acceptances", "users"
   add_foreign_key "account_complaints", "users"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "applications", "user_briefs"
-  add_foreign_key "applications", "users"
+  add_foreign_key "applis", "user_briefs"
+  add_foreign_key "applis", "users"
   add_foreign_key "articles", "users"
   add_foreign_key "auditions", "briefs"
   add_foreign_key "auditions", "users"
