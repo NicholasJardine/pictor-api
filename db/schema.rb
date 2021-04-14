@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_14_100153) do
+ActiveRecord::Schema.define(version: 2021_04_14_101046) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,6 +61,21 @@ ActiveRecord::Schema.define(version: 2021_04_14_100153) do
     t.index ["user_id"], name: "index_briefs_on_user_id"
   end
 
+  create_table "pb_reasons", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "private_brief_id"
+    t.text "custom"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "human_trafficking", default: false
+    t.boolean "unsafe", default: false
+    t.boolean "sexual_content", default: false
+    t.boolean "child_abuse", default: false
+    t.boolean "not_legit", default: false
+    t.index ["private_brief_id"], name: "index_pb_reasons_on_private_brief_id"
+    t.index ["user_id"], name: "index_pb_reasons_on_user_id"
+  end
+
   create_table "posts", force: :cascade do |t|
     t.string "caption"
     t.string "image"
@@ -69,6 +84,17 @@ ActiveRecord::Schema.define(version: 2021_04_14_100153) do
     t.datetime "updated_at", null: false
     t.string "video"
     t.index ["user_id"], name: "index_posts_on_user_id"
+  end
+
+  create_table "private_auditions", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "private_brief_id"
+    t.string "video"
+    t.string "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["private_brief_id"], name: "index_private_auditions_on_private_brief_id"
+    t.index ["user_id"], name: "index_private_auditions_on_user_id"
   end
 
   create_table "private_briefs", force: :cascade do |t|
@@ -168,7 +194,11 @@ ActiveRecord::Schema.define(version: 2021_04_14_100153) do
   add_foreign_key "auditions", "briefs"
   add_foreign_key "auditions", "users"
   add_foreign_key "briefs", "users"
+  add_foreign_key "pb_reasons", "private_briefs"
+  add_foreign_key "pb_reasons", "users"
   add_foreign_key "posts", "users"
+  add_foreign_key "private_auditions", "private_briefs"
+  add_foreign_key "private_auditions", "users"
   add_foreign_key "private_briefs", "users"
   add_foreign_key "private_invites", "private_briefs"
   add_foreign_key "private_invites", "users"
