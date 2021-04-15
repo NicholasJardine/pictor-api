@@ -44,7 +44,7 @@ class Api::V1::BriefsController < Api::V1::BaseController
   end
 
   def pb_reason_params
-    params.require(:pb_reason).permit(:wants, :needs, :id, :ethnicity, :gender, :name)
+    params.require(:pb_reason).permit(:user_id, :private_brief_id, :id, :custom, :unsafe, :human_trafficking, :child_abuse, :not_legit, :sexual_content)
   end
 
   def render_error
