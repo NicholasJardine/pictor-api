@@ -44,7 +44,7 @@ class Api::V1::PrivateInvitesController < Api::V1::BaseController
   end
 
   def private_invite_params
-    params.require(:private_invite).permit(:wants, :needs, :id, :ethnicity, :gender, :name)
+    params.require(:private_invite).permit(:private_brief_id, :id, :user_id, :status)
   end
 
   def render_error
