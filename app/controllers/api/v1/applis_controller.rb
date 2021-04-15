@@ -44,7 +44,7 @@ class Api::V1::ApplisController < Api::V1::BaseController
   end
 
   def appli_params
-    params.require(:appli).permit(:title, :description, :id, :image, :paragraph_1, :paragraph_2, :paragraph_3, :paragraph_4, :paragraph_5, :paragraph_6, :author, :user_id)
+    params.require(:appli).permit(:id, :status, :province, :user_brief_id, :user_id)
   end
 
   def render_error

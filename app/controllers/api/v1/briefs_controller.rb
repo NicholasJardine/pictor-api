@@ -44,7 +44,7 @@ class Api::V1::BriefsController < Api::V1::BaseController
   end
 
   def brief_params
-    params.require(:brief).permit(:wants, :needs, :id, :ethnicity, :gender, :name)
+    params.require(:brief).permit(:wants, :needs, :id, :ethnicity, :gender, :name, :traits, :language, :flaws, :arc_summary,:province; :scene; title:)
   end
 
   def render_error
