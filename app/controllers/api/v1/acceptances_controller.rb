@@ -44,7 +44,7 @@ class Api::V1::AcceptancesController < Api::V1::BaseController
   end
 
   def acceptance_params
-    params.require(:acceptance).permit(:title, :description, :id, :image, :paragraph_1, :paragraph_2, :paragraph_3, :paragraph_4, :paragraph_5, :paragraph_6, :author, :user_id)
+    params.require(:acceptance).permit(:id, :status, :user_id, :private_invite_id)
   end
 
   def render_error

@@ -44,7 +44,7 @@ class Api::V1::AccountComplaintsController < Api::V1::BaseController
   end
 
   def account_complaint_params
-    params.require(:account_complaint).permit(:title, :description, :id, :image, :paragraph_1, :paragraph_2, :paragraph_3, :paragraph_4, :paragraph_5, :paragraph_6, :author, :user_id)
+    params.require(:account_complaint).permit(:not_useful, :career_changes, :id, :not_recieving_briefs, :dont_like_it,  :unsatisfied, :not_useful, :custom, :user_id)
   end
 
   def render_error
