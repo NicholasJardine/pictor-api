@@ -1,4 +1,4 @@
-class Api::V1::BriefsController < Api::V1::BaseController
+class Api::V1::PbReasonsController < Api::V1::BaseController
   acts_as_token_authentication_handler_for User, except: [ :index, :show ]
     before_action :set_pb_reason, only: [ :show, :update, :destroy ]
 
