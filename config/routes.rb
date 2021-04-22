@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
   root to: 'pages#home'
+      devise_for :users
 
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
-      devise_for :users, :controllers => { :registrations => 'users/user_registrations' }
       resources :users, only: [ :index, :show, :update , :create, :destroy ]
 
       resources :posts, only: [ :index, :show, :update , :create, :destroy ]

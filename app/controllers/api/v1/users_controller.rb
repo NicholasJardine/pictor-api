@@ -1,6 +1,6 @@
-  class Api::V1::PrivateInvitesController < Api::V1::BaseController
+  class Api::V1::UsersController < Api::V1::BaseController
   acts_as_token_authentication_handler_for User, except: [ :index, :show ]
-    before_action :set_private_invite, only: [ :show, :update, :destroy ]
+    before_action :set_user, only: [ :show, :update, :destroy ]
 
   def index
     @users = policy_scope(User)
@@ -38,17 +38,17 @@
 
   private
 
-  def set_private_invite
-    @private_invite = PrivateInvite.find(params[:id])
-    authorize @private_invite  # For Pundit
+  def set_user
+    @user = User.find(params[:id])
+    authorize @user  # For Pundit
   end
 
-  def private_invite_params
-    params.require(:private_invite).permit(:private_brief_id, :id, :user_id, :status)
+  def user_params
+    params.require(:user).permit(:private_brief_id, :id, :user_id, :status)
   end
 
   def render_error
-    render json: { errors: @private_invite.errors.full_messages },
+    render json: { errors: @user.errors.full_messages },
       status: :unprocessable_entity
   end
 
