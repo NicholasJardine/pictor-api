@@ -1,5 +1,5 @@
   class Api::V1::UsersController < Api::V1::BaseController
-  acts_as_token_authentication_handler_for User, except: [ :index, :show ]
+  acts_as_token_authentication_handler_for User, except: [ :index, :show, :create ]
     before_action :set_user, only: [ :show, :update, :destroy ]
 
   def index
@@ -44,7 +44,7 @@
   end
 
   def user_params
-    params.require(:user).permit(:private_brief_id, :id, :user_id, :status)
+    params.require(:user).permit(:email, :password)
   end
 
   def render_error
