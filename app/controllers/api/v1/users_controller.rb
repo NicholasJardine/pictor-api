@@ -22,7 +22,6 @@
 
   def create
     @user = User.new(user_params)
-    @user.user = current_user
     authorize @user
     if @user.save
       render :show
