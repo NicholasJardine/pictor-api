@@ -21,7 +21,9 @@
   end
 
   def create
-    @user = User.new(user_params)
+    @user = User.create(user_params)
+    authorize @user
+
     if @user.save
       render :show
     else
