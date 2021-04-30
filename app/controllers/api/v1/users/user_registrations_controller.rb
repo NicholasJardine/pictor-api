@@ -1,4 +1,4 @@
-class Users::UserRegistrationsController < Devise::RegistrationsController
+class Api::V1::Users::UserRegistrationsController < Devise::RegistrationsController
     respond_to :json
 
   def create
