@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root to: 'pages#home'
 
-  scope :api, defaults: { format: :json } do
+  scope :api  do
   devise_for :users, :controllers => { :registrations => 'users/user_registrations' }
   end
 
