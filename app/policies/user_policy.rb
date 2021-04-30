@@ -14,7 +14,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def create?
-    user.nil?
+    true
   end
 
   def destroy?
