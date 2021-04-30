@@ -1,6 +1,7 @@
   class Api::V1::UsersController < Api::V1::BaseController
   acts_as_token_authentication_handler_for User, except: [ :index, :show, :create ]
     before_action :set_user, only: [ :show, :update, :destroy ]
+    skip_before_action :verify_authenticity_token
 
   def index
     @users = policy_scope(User)
