@@ -1,15 +1,6 @@
-  class Api::V1::UsersController < Devise::RegistrationsController
-  include Pundit
-
+  class Api::V1::UsersController < Api::V1::BaseController
   acts_as_token_authentication_handler_for User, except: [ :index, :show, :create ]
     before_action :set_user, only: [ :show, :update, :destroy ]
-
-  after_action :verify_authorized, except: :index
-  after_action :verify_policy_scoped, only: :index
-
-  rescue_from Pundit::NotAuthorizedError,   with: :user_not_authorized
-  rescue_from ActiveRecord::RecordNotFound, with: :not_found
-
 
   def index
     @users = policy_scope(User)
@@ -29,6 +20,16 @@
     end
   end
 
+  def create
+    @user = User.new(user_params)
+    authorize @user
+
+    if @user.save
+      render :show
+    else
+      render_error
+    end
+  end
 
   def destroy
     @user.destroy
@@ -50,16 +51,5 @@
     render json: { errors: @user.errors.full_messages },
       status: :unprocessable_entity
   end
-
-  def user_not_authorized(exception)
-    render json: {
-      error: "Unauthorized #{exception.policy.class.to_s.underscore.camelize}.#{exception.query}"
-    }, status: :unauthorized
-  end
-
-  def not_found(exception)
-    render json: { error: exception.message }, status: :not_found
-  end
-
 
 end
