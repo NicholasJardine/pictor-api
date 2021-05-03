@@ -4,11 +4,6 @@ class ApplicationController < ActionController::Base
 
   before_action :configure_permitted_perameters, if: :devise_controller?
 
-  skip_before_action :verify_authenticity_token, if: :devise_controller?
-
-
-  respond_to :json
-
   protected
 
   def configure_permitted_perameters
